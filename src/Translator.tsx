@@ -15,7 +15,7 @@ export function Translator() {
     const controller = new AbortController();
     const debounceId = setTimeout(async () => {
       try {
-        const res = await fetch("/translate", {
+        const res = await fetch("/api/translate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: inputText }),

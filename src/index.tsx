@@ -29,7 +29,7 @@ const translate = async (input: string): Promise<string> => {
 
 const server = serve({
   routes: {
-    "/translate": {
+    "/api/translate": {
       async POST(req) {
         try {
           const body = await req.json();
