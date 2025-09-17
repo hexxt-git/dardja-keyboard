@@ -1,15 +1,9 @@
 {
-  "version": 2,
   "functions": {
-    "api/**.ts": {
-      "runtime": "edge"
+    "api/**/*.ts": {
+      "runtime": "nodejs18.x",
+      "includeFiles": ["src/prompt.txt"]
     }
   },
-  "builds": [
-    {
-      "src": "src/index.tsx",
-      "use": "@vercel/static-build",
-      "config": {}
-    }
-  ]
+  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1" }]
 }
