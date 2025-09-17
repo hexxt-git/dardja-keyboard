@@ -49,6 +49,7 @@ export function Translator() {
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         placeholder="Type here..."
+        rows={4}
       />
 
       <Textarea
@@ -56,6 +57,7 @@ export function Translator() {
         readOnly
         placeholder="ستظهر ترجمتك هنا..."
         dir="rtl"
+        rows={4}
       />
     </div>
   );
