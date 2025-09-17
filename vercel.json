@@ -1,17 +1,14 @@
 {
-  "version": 2,
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "methods": ["POST", "GET", "OPTIONS"]
-    },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
   "functions": {
-    "api/**/*": {
-      "memory": 1024
+    "api/**.ts": {
+      "runtime": "edge"
     }
-  }
+  },
+  "builds": [
+    {
+      "src": "src/index.tsx",
+      "use": "@vercel/static-build",
+      "config": {}
+    }
+  ]
 }
