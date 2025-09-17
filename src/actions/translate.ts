@@ -1,5 +1,4 @@
-// api/translate.ts  (Edge runtime, TypeScript)
-export const runtime = "edge";
+"use server";
 
 import { generateObject } from "ai";
 import { groq } from "@ai-sdk/groq";
@@ -11,12 +10,12 @@ const Prompt = `
 given a piece of Arabizi text, convert it to Arabic letters
 
 # Definitions
-Arabizi (also known as Arabizi, Arabeezi, Arabish, Franco-Arabic or simply Franco) is a way of writing the Arabic language with latin letters and digits, this 
+Arabizi (also known as Arabizi, Arabeezi, Arabish, Franco-Arabic or simply Franco) is a way of writing the Arabic language with latin letters and digits, this
 
 ## Common Arabizi Numbers
 
 * 2 → أ (ʾ / glottal stop)
-* 3 → ع (‘ayn)
+* 3 → ع ('ayn)
 * 5 → خ (kh)
 * 7 → ح (ḥ)
 * 9 → ق (ṣ)
@@ -55,44 +54,23 @@ const translate = async (input: string): Promise<string> => {
   return response.object.text;
 };
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
+export async function translateAction(
+  input: string
+): Promise<{ text: string }> {
+  if (input.trim() === "") {
+    return { text: "" };
+  }
+
+  if (input.length > 1500) {
+    throw new Error("Text is too long");
   }
 
   try {
-    // Handle both Edge Request objects and Node.js-style request objects
-    let body;
-    try {
-      body = await req.json();
-    } catch (e) {
-      // If req.json() is not a function, try to read the body as a stream
-      const text = await new Response(req.body).text();
-      try {
-        body = JSON.parse(text);
-      } catch (parseError) {
-        return new Response("Invalid JSON body", { status: 400 });
-      }
-    }
-
-    const input = String(body?.text ?? "");
-
-    if (input.trim() === "") {
-      return new Response(JSON.stringify({ text: "" }), {
-        headers: { "content-type": "application/json" },
-      });
-    }
-
-    if (input.length > 1500) {
-      return new Response("Text is too long", { status: 400 });
-    }
-
     const responseText = await translate(input);
-    return new Response(JSON.stringify({ text: responseText }), {
-      headers: { "content-type": "application/json" },
-    });
+    console.log("Translated text", responseText);
+    return { text: responseText };
   } catch (error) {
     console.error("Error translating text", error);
-    return new Response("Error", { status: 500 });
+    throw new Error("Error");
   }
 }

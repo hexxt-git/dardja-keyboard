@@ -1,6 +1,8 @@
-import { cn } from "@/lib/utils";
+"use client";
+
 import { useEffect, useState } from "react";
-import { Textarea } from "./components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
+import { translateAction } from "@/actions/translate";
 
 export function Translator() {
   const [inputText, setInputText] = useState("");
@@ -15,25 +17,10 @@ export function Translator() {
     const controller = new AbortController();
     const debounceId = setTimeout(async () => {
       try {
-        const res = await fetch("/api/translate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: inputText }),
-          signal: controller.signal,
-        });
-
-        if (!res.ok) {
-          const text = await res.text();
-          setOutputText(text || "Error");
-          return;
-        }
-
-        const data: { text?: string } = await res.json();
-        setOutputText(data.text ?? "");
+        const result = await translateAction(inputText);
+        setOutputText(result.text);
       } catch (err) {
-        if ((err as any)?.name !== "AbortError") {
-          setOutputText("Error");
-        }
+        setOutputText("Error");
       }
     }, 1000);
 

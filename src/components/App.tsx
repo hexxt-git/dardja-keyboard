@@ -1,10 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Translator } from "./Translator";
-import "./index.css";
 
 export function App() {
   return (
-    <div className="container mx-auto p-8 text-center relative z-10">
+    <div className="container mx-auto p-8 text-center relative z-10 w-fit">
       <Card className="bg-card border-muted">
         <CardContent className="pt-6">
           <h1 className="text-5xl font-bold my-4 leading-tight">
