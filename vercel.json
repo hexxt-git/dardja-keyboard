@@ -1,9 +1,7 @@
 {
   "functions": {
     "api/**/*.ts": {
-      "runtime": "nodejs18.x",
-      "includeFiles": ["src/prompt.txt"]
+      "runtime": "edge"
     }
-  },
-  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1" }]
+  }
 }
