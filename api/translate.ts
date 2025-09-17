@@ -61,7 +61,20 @@ export default async function handler(req: Request): Promise<Response> {
   }
 
   try {
-    const body = await req.json();
+    // Handle both Edge Request objects and Node.js-style request objects
+    let body;
+    try {
+      body = await req.json();
+    } catch (e) {
+      // If req.json() is not a function, try to read the body as a stream
+      const text = await new Response(req.body).text();
+      try {
+        body = JSON.parse(text);
+      } catch (parseError) {
+        return new Response("Invalid JSON body", { status: 400 });
+      }
+    }
+
     const input = String(body?.text ?? "");
 
     if (input.trim() === "") {
