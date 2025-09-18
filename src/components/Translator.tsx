@@ -35,7 +35,7 @@ export function Translator() {
       <Textarea
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
-        placeholder="Type here..."
+        placeholder="adkhel kitabat arabizi hna"
         rows={4}
       />
 

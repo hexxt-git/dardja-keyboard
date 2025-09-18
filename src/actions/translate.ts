@@ -14,11 +14,12 @@ Arabizi (also known as Arabizi, Arabeezi, Arabish, Franco-Arabic or simply Franc
 
 ## Common Arabizi Numbers
 
-* 2 → أ (ʾ / glottal stop)
-* 3 → ع ('ayn)
-* 5 → خ (kh)
-* 7 → ح (ḥ)
-* 9 → ق (ṣ)
+* 2 or aa → أ (ʾ / glottal stop)
+* 3 or aa → ع ('ayn)
+* 5 or kh → خ (kh)
+* 7 or h → ح (ḥ)
+* 8 or h → ه (h)
+* 9 or k→ ق (ṣ)
 
 ## Examples
 

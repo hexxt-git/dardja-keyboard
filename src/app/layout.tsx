@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dardja | Gen-Z translator",
-  description: "Translate your Arabizi text to Dardja",
+  description: "Translate your Arabizi text to Arabic letters",
   icons: {
     icon: "/logo.png",
   },

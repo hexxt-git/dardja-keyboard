@@ -20,6 +20,7 @@ export function App() {
             </a>{" "}
             bellow and get it instantly translated
           </p>
+          <p>example: "wech rak hbi" -&gt; "وش راك حبي"</p>
           <Translator />
           <p className="mt-4">
             app by{" "}
@@ -33,7 +34,7 @@ export function App() {
             </a>
             . open-sourced on{" "}
             <a
-              href="https://github.com/hexxt-git/dardja"
+              href="https://github.com/hexxt-git/dardja-keyboard"
               target="_blank"
               className="hover:underline"
               rel="noopener noreferrer"
