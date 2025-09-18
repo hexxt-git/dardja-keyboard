@@ -7,7 +7,7 @@ import { useTranslate } from "@/lib/useTranslate";
 
 export function Translator() {
   const [inputText, setInputText] = useState("");
-  const { translate, translatedText, isLoading } = useTranslate();
+  const { translate, translatedText, isLoading, error } = useTranslate();
 
   useEffect(() => {
     if (inputText.trim() === "") {
@@ -43,6 +43,11 @@ export function Translator() {
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/50">
             <Spinner size="md" />
+          </div>
+        )}
+        {error && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+            <p className="text-red-500">{error.message}</p>
           </div>
         )}
       </div>

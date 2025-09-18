@@ -1,8 +1,7 @@
 "use server";
 
-import { generateObject } from "ai";
+import { generateText } from "ai";
 import { groq } from "@ai-sdk/groq";
-import { z } from "zod";
 
 /** Prompt should be provided via an env var in Vercel: PROMPT */
 const Prompt = `
@@ -39,10 +38,8 @@ do not translate the dialects of the user input. if the user wants to write morr
 ## Caveats
 There could be multiple ways to write the same word using Arabizi depending on the person's dialect or style. both 5 and kh could be used to write خ
 
-YOU MUST RETURN THE TEXT IN ARABIC LETTERS ONLY IN A JSON OBJECT WITH THE KEY "text".
-{
-  "text": "النص المترجم بحروف عربية فقط"
-}
+YOU MUST RETURN THE TEXT IN ARABIC LETTERS ONLY.
+even if the user input is in english or any other language, you must return the text in arabic letters only.
 `;
 
 const refine = (text: string): boolean => {
@@ -51,18 +48,16 @@ const refine = (text: string): boolean => {
 };
 
 const translate = async (input: string): Promise<string> => {
-  const response = await generateObject({
-    schema: z.object({
-      text: z
-        .string()
-        .describe("النص المترجم بحروف عربية فقط")
-        .refine((text) => text.length > 0 && refine(text)),
-    }),
+  const response = await generateText({
+    prompt: input,
     model: groq("openai/gpt-oss-20b"),
     system: Prompt,
-    prompt: input,
   });
-  return response.object.text;
+  const isValid = refine(response.text);
+  if (!isValid) {
+    throw new Error("Invalid text");
+  }
+  return response.text;
 };
 
 export async function translateAction(
@@ -82,6 +77,6 @@ export async function translateAction(
     return { text: responseText };
   } catch (error) {
     console.error("Error translating text", error);
-    throw new Error("Error");
+    throw error;
   }
 }
