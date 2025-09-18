@@ -20,12 +20,14 @@ Arabizi (also known as Arabizi, Arabeezi, Arabish, Franco-Arabic or simply Franc
 * 7 or h → ح (ḥ)
 * 8 or h → ه (h)
 * 9 or k→ ق (ṣ)
+* k → ك (k)
 
 ## Examples
 
 * inshallah nchoufek ghodwa → إن شاء الله نشوفك غدوة
 * la ta9la9, kolshi tmam → لا تقلق، كل شيء تمام
 * 3andi bzaaf khdema elyom → عندي بزاف خدمة اليوم
+* wech rak yakho → وش راك ياخو
 
 ## Instruction
 Return exactly the converted text without any other text or explanation.

@@ -2,33 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { translateAction } from "@/actions/translate";
+import { Spinner } from "@/components/ui/spinner";
+import { useTranslate } from "@/lib/useTranslate";
 
 export function Translator() {
   const [inputText, setInputText] = useState("");
-  const [outputText, setOutputText] = useState("");
+  const { translate, translatedText, isLoading } = useTranslate();
 
   useEffect(() => {
     if (inputText.trim() === "") {
-      setOutputText("");
       return;
     }
 
-    const controller = new AbortController();
-    const debounceId = setTimeout(async () => {
-      try {
-        const result = await translateAction(inputText);
-        setOutputText(result.text);
-      } catch (err) {
-        setOutputText("Error");
-      }
+    const debounceId = setTimeout(() => {
+      translate(inputText);
     }, 1000);
 
     return () => {
-      controller.abort();
       clearTimeout(debounceId);
     };
-  }, [inputText]);
+  }, [inputText, translate]);
 
   return (
     <div className="mt-8 mx-auto w-full max-w-2xl text-left flex flex-col gap-4">
@@ -39,13 +32,20 @@ export function Translator() {
         rows={4}
       />
 
-      <Textarea
-        value={outputText}
-        readOnly
-        placeholder="ستظهر ترجمتك هنا..."
-        dir="rtl"
-        rows={4}
-      />
+      <div className="relative">
+        <Textarea
+          value={translatedText}
+          readOnly
+          placeholder="ستظهر ترجمتك هنا..."
+          dir="rtl"
+          rows={4}
+        />
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+            <Spinner size="md" />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
