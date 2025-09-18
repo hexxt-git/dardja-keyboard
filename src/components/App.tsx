@@ -20,7 +20,7 @@ export function App() {
             </a>{" "}
             bellow and get it instantly translated
           </p>
-          <p>example: "wech rak hbi" -&gt; "وش راك حبي"</p>
+          <p>example: "wech rak yakho" -&gt; "وش راك ياخو"</p>
           <Translator />
           <p className="mt-4">
             app by{" "}
