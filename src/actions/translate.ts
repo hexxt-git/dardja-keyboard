@@ -38,6 +38,8 @@ do not translate the dialects of the user input. if the user wants to write morr
 
 ## Caveats
 There could be multiple ways to write the same word using Arabizi depending on the person's dialect or style. both 5 and kh could be used to write خ
+
+YOU MUST RETURN THE TEXT IN ARABIC LETTERS ONLY.
 `;
 
 const refine = (text: string): boolean => {
@@ -48,7 +50,10 @@ const refine = (text: string): boolean => {
 const translate = async (input: string): Promise<string> => {
   const response = await generateObject({
     schema: z.object({
-      text: z.string().refine((text) => text.length > 0 && refine(text)),
+      text: z
+        .string()
+        .describe("النص المترجم بحروف عربية فقط")
+        .refine((text) => text.length > 0 && refine(text)),
     }),
     model: groq("openai/gpt-oss-20b"),
     system: Prompt,
