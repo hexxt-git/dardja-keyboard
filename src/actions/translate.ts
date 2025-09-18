@@ -39,7 +39,10 @@ do not translate the dialects of the user input. if the user wants to write morr
 ## Caveats
 There could be multiple ways to write the same word using Arabizi depending on the person's dialect or style. both 5 and kh could be used to write خ
 
-YOU MUST RETURN THE TEXT IN ARABIC LETTERS ONLY.
+YOU MUST RETURN THE TEXT IN ARABIC LETTERS ONLY IN A JSON OBJECT WITH THE KEY "text".
+{
+  "text": "النص المترجم بحروف عربية فقط"
+}
 `;
 
 const refine = (text: string): boolean => {
